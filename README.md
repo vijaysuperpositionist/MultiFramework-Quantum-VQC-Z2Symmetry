@@ -1,81 +1,43 @@
-# PennylaneHamiltonian
-Variational Quantum Learning of Hidden Symmetries in Quantum Hamiltonians: Enabling Improved Ansatz Design and Error Robustness in Near-Term Quantum Systems.
-Quantum Symmetry Classifier – 2-Qubit VQC (Pennylane)
-This project implements a Variational Quantum Classifier (VQC) using Pennylane to identify symmetry properties of quantum Hamiltonians. It serves as a proof-of-concept for symmetry detection via quantum machine learning and will be submitted to IEEE QCE25.
+This repository implements and compares Variational Quantum Classifier (VQC) architectures for detecting Z₂ parity symmetry in toy Hamiltonians across three major quantum frameworks:
 
-What We’ve Done (So Far)
-📦 Environment Setup
+PennyLane (IBM backend) — full classical simulation and circuit cost convergence analysis
+Cirq (Google backend) — implemented with both gradient-free and gradient-based optimization
+Qiskit (IBM Composer + Aer simulator + real device) — results from real IBM Quantum backends
 
-Created and isolated a pennylane_env using Anaconda
+Key Features:
 
-Installed pennylane, scikit-learn, matplotlib, and Qiskit simulators
+Dataset builder for Z₂-symmetric and asymmetric Hamiltonians
 
-⚙️ Model Architecture
+Angle encoding of features via RY gates
 
-Built a 2-qubit classifier circuit using a basic ansatz:
+Cost function convergence plots and ROC curves
 
-RY(x) encoding for features
+Threshold tuning for classifier outputs
 
-RY(weights) for trainable parameters
+Cirq implementation using both gradient-based and gradient-free methods
 
-CNOT entanglement between qubits
+Real quantum hardware job run via IBM Composer (Sherbrooke backend)
 
-Output: ⟨Z⟩ expectation on qubit 0
+📂 File Overview
 
-Training Loop
+vq_classifier_symmetry_pennylane.ipynb: PennyLane simulation for VQC Z₂ classifier
 
-Implemented custom loss with soft labels (0.9/0.1)
+vq_classifier_symmetry_pennylane--ibm.ipynb: PennyLane version adapted for IBM Simulator
 
-Added L2 regularization
+vq_classifier_symmetry_cirq.ipynb: Cirq implementation using both optimization strategies
 
-Integrated validation loss tracking
+job_VQC-Z2-IBM_Qiskit_results_c.pdf: Output from IBM Composer run
 
-Saved loss history to loss_log.csv
+📉 Sample Results
 
-Added live plotting of training vs validation loss
+PennyLane: AUC = 0.65 (post-threshold tuning), Accuracy = 0.60
 
-Generalization Measures
+Cirq (Gradient-Free): AUC = 0.75, Accuracy = 0.70
 
-Introduced noise via default.mixed device
+Cirq (Gradient-Based): AUC = 0.95, Accuracy = 0.80
 
-Tuned for generalization using early stopping
+Qiskit Composer: Real hardware histogram output included
 
-Logged best-performing weights during training
+🧭 Next Steps
 
- Evaluation
-
-Used accuracy_score and roc_auc_score on a holdout set
-
-Visualized raw circuit predictions
-
-Simulated final model on qiskit.aer for a hardware-matching backend
-
-Outcome
-
-Stable loss convergence
-
-Clear separation of output expectations across symmetry classes
-
-Tested Google Cirq with and without Gradient
- Variational Quantum Classifier for Z₂ Symmetry Detection (Cirq Implementation)
-This notebook implements a Variational Quantum Classifier (VQC) using Google’s Cirq framework to detect Z₂ parity symmetry in synthetic Hamiltonian feature encodings. The same classifier architecture is adapted from the PennyLane version for comparative benchmarking.
-
-📌 Project Highlights
-Quantum Framework: Cirq (1.5.0)
-
-Symmetry Target: Z₂ parity (detect if qubit rotations are symmetric across features)
-
-Backend: Cirq Simulator (state vector)
-
-Optimization Strategies:
-
-Gradient-Free: Nelder-Mead
-
-Gradient-Based: Manual Finite-Difference
-
-"Tested on real IBM Quantum hardware (ibm_sherbrooke) with 10,000 shots. Results exhibited uniform probability distribution across Z₂ symmetry pairs — confirming our handcrafted VQC circuit preserves parity."
-
-AUC = 1.0 on test data with only 2-qubit model
-
-Ready for real-hardware execution
-
+Feel free to explore each notebook and PDF result to trace the performance across frameworks. This repo is part of an IEEE QCE25 submission effort.

@@ -56,6 +56,25 @@ Stable loss convergence
 
 Clear separation of output expectations across symmetry classes
 
+Tested Google Cirq with and without Gradient
+ Variational Quantum Classifier for Z₂ Symmetry Detection (Cirq Implementation)
+This notebook implements a Variational Quantum Classifier (VQC) using Google’s Cirq framework to detect Z₂ parity symmetry in synthetic Hamiltonian feature encodings. The same classifier architecture is adapted from the PennyLane version for comparative benchmarking.
+
+📌 Project Highlights
+Quantum Framework: Cirq (1.5.0)
+
+Symmetry Target: Z₂ parity (detect if qubit rotations are symmetric across features)
+
+Backend: Cirq Simulator (state vector)
+
+Optimization Strategies:
+
+Gradient-Free: Nelder-Mead
+
+Gradient-Based: Manual Finite-Difference
+
+"Tested on real IBM Quantum hardware (ibm_sherbrooke) with 10,000 shots. Results exhibited uniform probability distribution across Z₂ symmetry pairs — confirming our handcrafted VQC circuit preserves parity."
+
 AUC = 1.0 on test data with only 2-qubit model
 
 Ready for real-hardware execution
